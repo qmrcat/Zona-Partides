@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="ca">
+<head>
+  <meta charset="UTF-8" />
+  <title>Marcador de joc de taula</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <link rel="stylesheet" href="/assets/styles.css" />
+  <link rel="stylesheet" href="/assets/uimodal.css">
+
+</head>
+<body>
+  <main class="app">
+    <h1>Marcador de partida</h1>
+    <!-- Vista inicial: llista de partides + creació -->
+    <section id="screen-setup">
+       <p class="subtitle">Porta el control de punts de qualsevol joc de taula i desa les partides al dispositiu.</p>
+      <div class="card">
+        <div class="section-title">
+          <span>Partides desades</span>
+          <span class="badge" id="saved-count">0 partides</span>
+        </div>
+
+        <div id="games-list" class="games-list"></div>
+        <p id="no-games" class="empty-note">
+          Encara no hi ha cap partida desada. Crea’n una a continuació.
+        </p>
+        <div id="undo-toast" class="hidden" aria-live="polite"></div>
+      </div>
+
+      <div class="card">
+        <div class="section-title">
+          <span>Nova partida</span>
+          <span class="badge">configuració</span>
+        </div>
+
+        <form id="new-game-form">
+          <div class="row">
+            <div style="flex: 1">
+              <label for="game-name">Nom de la partida</label>
+              <input id="game-name" type="text" placeholder="Ex: Catan amb la colla" required />
+            </div>
+          </div>
+
+          <div class="row" style="margin-top: 0.6rem">
+            <div style="flex: 1">
+              <label for="player-name">Afegir jugador(s)</label>
+              <div class="row">
+                <input id="player-name" type="text" placeholder="Anna, Joan, Pau..." />
+                <button type="button" id="add-player" class="btn btn-outline">+ Afegir</button>
+              </div>
+            </div>
+          </div>
+
+          <div id="players-container" class="players-list"></div>
+
+          <div class="row" style="margin-top: 0.7rem">
+            <div style="flex: 1">
+              <label for="rounds">Nombre de rondes</label>
+              <input id="rounds" type="number" min="1" max="50" value="10" />
+            </div>
+          </div>
+
+          <div class="row" style="margin-top: 0.7rem">
+            <div style="flex: 1">
+              <label for="score-mode">
+                <input type="checkbox" id="score-mode" style="width: auto; margin-right: 0.3rem;" />
+                Mode puntuació inicial (es resten punts)
+              </label>
+            </div>
+          </div>
+
+          <div class="row" id="initial-score-row" style="margin-top: 0.4rem; display: none;">
+            <div style="flex: 1">
+              <label for="initial-score">Puntuació inicial de cada jugador</label>
+              <input id="initial-score" type="number" min="1" max="9999" value="40" placeholder="Ex: 40" />
+            </div>
+          </div>
+
+          <div class="row" style="margin-top: 0.7rem">
+            <div style="flex: 1">
+              <label>&nbsp;</label>
+              <button type="submit" class="btn btn-primary" style="width: 100%;">Crear tauler</button>
+            </div>
+          </div>
+        </form>
+      </div>
+    </section>
+
+    <!-- Vista del tauler de puntuacions -->
+    <section id="screen-board" class="hidden">
+      <div class="card">
+        <div class="board-header">
+          <div class="board-title">
+            <h2 id="board-game-name"></h2>
+            <div class="board-sub" id="board-meta"></div>
+          </div>
+
+          <div class="board-actions">
+            <div class="board-actions-main">
+              <button id="btn-add-round" class="btn btn-outline">+ Ronda</button>
+              <button id="btn-close-game" class="btn btn-outline">Tancar</button>
+              <button id="btn-delete-game" class="btn btn-danger">Esborrar</button>
+            </div>
+            <div class="board-add-player-row">
+              <input
+                id="board-player-name"
+                type="text"
+                placeholder="Afegir jugador(s): Anna, Joan..."
+              />
+              <button id="btn-board-add-player" class="btn btn-outline">+ Jugador</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="table-wrapper">
+          <table id="score-table">
+            <thead></thead>
+            <tbody></tbody>
+          </table>
+        </div>
+
+        <div class="board-footer">
+          <div class="totals-summary" id="totals-summary"></div>
+          <div>Canvis desats automàticament 💾</div>
+        </div>
+      </div>
+    </section>
+  </main>
+  <div id="confirm-modal" class="hidden" role="dialog" aria-modal="true">
+  <div class="confirm-backdrop"></div>
+
+  <div class="confirm-card">
+    <h3 id="confirm-title">Confirmació</h3>
+    <p id="confirm-message"></p>
+
+    <div class="confirm-actions">
+      <button id="confirm-cancel" class="btn btn-outline">Cancel·la</button>
+      <button id="confirm-ok" class="btn btn-danger">Eliminar</button>
+    </div>
+  </div>
+</div>
+
+
+  <script src="/assets/uimodal.js" defer></script>
+  <script type="module" src="/assets/scripts.js" defer></script>
+
+</body>
+</html>

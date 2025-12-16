@@ -1,0 +1,593 @@
+
+    :root {
+      --bg: #0f172a;
+      --card: #020617;
+      --accent: #38bdf8;
+      --accent-soft: #082f49;
+      --text: #e5e7eb;
+      --text-soft: #9ca3af;
+      --danger: #f97373;
+      --border: #1f2937;
+      --radius: 14px;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background: radial-gradient(circle at top, #1f2937 0, var(--bg) 50%, #020617 100%);
+      color: var(--text);
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+    }
+
+    .app {
+      width: 100%;
+      max-width: 640px;
+      padding: 1rem;
+      padding-bottom: 2.5rem;
+    }
+
+    h1 {
+      font-size: 1.4rem;
+      margin: 0 0 0.4rem;
+      text-align: center;
+    }
+
+    .subtitle {
+      text-align: center;
+      font-size: 0.85rem;
+      color: var(--text-soft);
+      margin-bottom: 1rem;
+    }
+
+    .card {
+      background: linear-gradient(145deg, #020617, #030712);
+      border-radius: var(--radius);
+      padding: 1rem;
+      border: 1px solid var(--border);
+      box-shadow:
+        0 18px 40px rgba(0, 0, 0, 0.65),
+        0 0 0 1px rgba(15, 23, 42, 0.8);
+      backdrop-filter: blur(18px);
+    }
+
+    .card + .card {
+      margin-top: 1rem;
+    }
+
+    label {
+      font-size: 0.8rem;
+      display: block;
+      margin-bottom: 0.25rem;
+      color: var(--text-soft);
+    }
+
+    input[type="text"]{
+      width: 100%;
+      padding: 0.55rem 0.7rem;
+      border-radius: 999px;
+      border: 1px solid var(--border);
+      background: #020617;
+      color: var(--text);
+      font-size: 0.9rem;
+      outline: none;
+    }
+    input[type="number"] {
+      width: 100%;
+      padding: 0.55rem 0.7rem;
+      border-radius: 999px;
+      border: 1px solid var(--border);
+      background: #020617;
+      color: var(--text);
+      font-size: 0.9rem;
+      outline: none;
+      -moz-appearance: textfield;
+      appearance: textfield;
+    }
+
+    input[type="text"]:focus,
+    input[type="number"]:focus {
+      border-color: var(--accent);
+      box-shadow: 0 0 0 1px rgba(56, 189, 248, 0.4);
+    }
+
+    .row {
+      display: flex;
+      gap: 0.6rem;
+      align-items: center;
+    }
+
+    .row + .row {
+      margin-top: 0.4rem;
+    }
+
+    .btn {
+      border: none;
+      border-radius: 999px;
+      padding: 0.55rem 1.1rem;
+      font-size: 0.9rem;
+      font-weight: 500;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.35rem;
+      transition: transform 0.08s ease, box-shadow 0.08s ease, background 0.15s ease;
+      white-space: nowrap;
+    }
+
+    .btn:active {
+      transform: scale(0.96);
+    }
+
+    .btn-primary {
+      background: var(--accent);
+      color: #0b1120;
+      box-shadow: 0 10px 25px rgba(56, 189, 248, 0.35);
+    }
+
+    .btn-primary:hover {
+      background: #0ea5e9;
+    }
+
+    .btn-outline {
+      background: transparent;
+      color: var(--text-soft);
+      border: 1px solid var(--border);
+    }
+
+    .btn-outline:hover {
+      border-color: var(--accent);
+      color: var(--accent);
+    }
+
+    .btn-danger {
+      background: transparent;
+      color: var(--danger);
+      border: 1px solid rgba(248, 113, 113, 0.4);
+    }
+
+    .btn-danger:hover {
+      background: rgba(248, 113, 113, 0.08);
+    }
+
+    .section-title {
+      font-size: 0.95rem;
+      margin-bottom: 0.5rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 0.5rem;
+    }
+
+    .badge {
+      font-size: 0.7rem;
+      padding: 0.15rem 0.5rem;
+      border-radius: 999px;
+      background: var(--accent-soft);
+      color: var(--accent);
+    }
+
+    .games-list {
+      max-height: 260px;
+      overflow-y: auto;
+      margin-top: 0.5rem;
+      padding-right: 0.2rem;
+    }
+
+    .game-item {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 0.5rem;
+      padding: 0.5rem 0.4rem;
+      border-radius: 10px;
+      border: 1px solid transparent;
+      transition: background 0.15s ease, border-color 0.15s ease;
+    }
+
+    .game-item:hover {
+      background: #020617;
+      border-color: var(--border);
+    }
+
+    .game-meta {
+      font-size: 0.75rem;
+      color: var(--text-soft);
+    }
+
+    .players-list {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.35rem;
+      margin-top: 0.4rem;
+    }
+
+    .player-tag {
+      font-size: 0.75rem;
+      padding: 0.18rem 0.55rem;
+      border-radius: 999px;
+      background: #020617;
+      border: 1px dashed var(--border);
+      color: var(--text-soft);
+    }
+
+    .empty-note {
+      font-size: 0.8rem;
+      color: var(--text-soft);
+      margin-top: 0.25rem;
+    }
+
+    .board-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: 0.75rem;
+      margin-bottom: 0.6rem;
+      flex-wrap: wrap;
+    }
+
+    .board-title {
+      display: flex;
+      flex-direction: column;
+      gap: 0.1rem;
+      flex: 1 1 180px;
+    }
+
+    .board-title h2 {
+      margin: 0;
+      font-size: 1.05rem;
+    }
+
+    .board-sub {
+      font-size: 0.75rem;
+      color: var(--text-soft);
+    }
+
+    .board-actions {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-end;
+      gap: 0.35rem;
+      flex: 1 1 200px;
+    }
+
+    .board-actions-main {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.35rem;
+      justify-content: flex-end;
+    }
+
+    .board-add-player-row {
+      display: flex;
+      gap: 0.35rem;
+      width: 100%;
+    }
+
+    .board-add-player-row input {
+      flex: 1;
+    }
+
+    .table-wrapper {
+      margin-top: 0.4rem;
+      border-radius: 12px;
+      border: 1px solid var(--border);
+      overflow-x: auto;
+      background: #020617;
+    }
+
+    /* Taula amb thead fix i tbody amb scroll vertical */
+    table {
+      border-collapse: collapse;
+      width: 100%;
+      min-width: 480px;
+      font-size: 0.75rem;
+    }
+
+    thead,
+    tbody tr {
+      display: table;
+      width: 100%;
+      table-layout: fixed;
+    }
+
+    tbody {
+      display: block;
+      max-height: 320px; /* altura visible de rondes */
+      overflow-y: auto;
+    }
+
+    th,
+    td {
+      border-bottom: 1px solid #020617;
+      padding: 0.35rem 0.45rem;
+      text-align: center;
+      white-space: nowrap;
+    }
+
+    th {
+      background: #020617;
+      z-index: 1;
+    }
+
+    td:first-child,
+    th:first-child {
+      text-align: left;
+      position: sticky;
+      left: 0;
+      background: #020617;
+      z-index: 2;
+    }
+
+    .player-cell {
+      font-weight: 500;
+      font-size: 0.8rem;
+    }
+
+    .round-input {
+      width: 3rem;
+      padding: 0.25rem 0.3rem;
+      font-size: 0.75rem;
+      border-radius: 6px;
+      border: 1px solid #111827;
+      background: #020617;
+      color: var(--text);
+      text-align: center;
+    }
+
+    .round-input:focus {
+      border-color: var(--accent);
+      outline: none;
+      box-shadow: 0 0 0 1px rgba(56, 189, 248, 0.4);
+    }
+
+    .total-cell {
+      font-weight: 600;
+      font-size: 0.8rem;
+      color: var(--accent);
+      font-size: 1.0rem;
+      padding-left: 0;
+      padding-right: 17px;
+      text-align: center;
+    }
+
+    .total-cell.negative {
+      color: var(--danger);
+    }
+
+    .board-footer {
+      margin-top: 0.6rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 0.5rem;
+      font-size: 0.75rem;
+      color: var(--text-soft);
+      flex-wrap: wrap;
+    }
+
+    .totals-summary {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.35rem;
+    }
+
+    .totals-pill {
+      border-radius: 999px;
+      padding: 0.2rem 0.6rem;
+      border: 1px solid var(--border);
+    }
+
+    /* Ressaltat del/s guanyador/s */
+    .winner {
+      /* background: #082f49;
+      color: #e5e7eb !important; */
+      --hoal: #082f49;
+    }
+
+    .totals-pill.winner {
+      background: #020617;
+      border-color: var(--accent);
+      box-shadow: 0 0 0 1px rgba(56, 189, 248, 0.6);
+    }
+
+    .hidden {
+      display: none !important;
+    }
+
+    .z-index-top {
+      z-index: 10 !important;
+    }
+
+    .color-trasnparent {
+      background: transparent !important;
+    }
+
+    /* Botonets d'esborrar dins la taula */
+.th-player-wrap{
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  gap:.35rem;
+}
+
+/* .icon-btn{
+  border: 1px solid var(--border);
+  background: transparent;
+  color: var(--text-soft);
+  border-radius: 999px;
+  padding: .05rem .4rem;
+  line-height: 1.2;
+  font-size: .75rem;
+  cursor: pointer;
+}
+.icon-btn:hover{
+  border-color: var(--danger);
+  color: var(--danger);
+} */
+
+
+.round-label-wrap{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:.35rem;
+}
+
+/* Per defecte, els botons d'esborrar estan amagats */
+/* .th-player-wrap .icon-btn,
+.round-label-wrap .icon-btn{
+  opacity: 0;
+  pointer-events: none;
+  transform: scale(.95);
+  transition: opacity .15s ease, transform .15s ease;
+} */
+
+.th-player-wrap .dots-btn,
+.round-label-wrap .dots-btn{
+  opacity: 0;
+  pointer-events: none;
+  transform: scale(.95);
+  transition: opacity .15s ease, transform .15s ease;
+}
+
+/* Menú contextual per rondes i jugadors */
+.context-menu {
+  position: absolute;
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+  z-index: 1000;
+  min-width: 160px;
+  padding: 0.35rem 0;
+}
+
+.context-menu-item {
+  padding: 0.5rem 0.75rem;
+  cursor: pointer;
+  font-size: 0.85rem;
+  color: var(--text);
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  transition: background 0.15s ease;
+}
+
+.context-menu-item:hover {
+  background: var(--accent-soft);
+}
+
+.context-menu-item.danger {
+  color: var(--danger);
+}
+
+.context-menu-item.danger:hover {
+  background: rgba(248, 113, 113, 0.08);
+}
+
+/* Botó de tres punts */
+.dots-btn {
+  border: 1px solid var(--border);
+  background: transparent;
+  color: var(--text-soft);
+  border-radius: 999px;
+  padding: 0.05rem 0.4rem;
+  line-height: 1.2;
+  font-size: 0.85rem;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+.dots-btn:hover {
+  border-color: var(--accent);
+  color: var(--accent);
+}
+
+
+/* En dispositius amb hover: apareixen en passar el ratolí */
+/* @media (hover: hover) and (pointer: fine) {
+  th:hover .th-player-wrap .icon-btn,
+  td:hover .round-label-wrap .icon-btn{
+    opacity: 1;
+    pointer-events: auto;
+    transform: scale(1);
+  }
+} */
+
+/* En mòbil: apareixen quan el contenidor té la classe .actions-visible */
+/* .actions-visible .icon-btn{
+  opacity: 1 !important;
+  pointer-events: auto !important;
+  transform: scale(1) !important;
+} */
+
+
+@media (hover: hover) and (pointer: fine) {
+  th:hover .th-player-wrap .dots-btn,
+  td:hover .round-label-wrap .dots-btn{
+    opacity: 1;
+    pointer-events: auto;
+    transform: scale(1);
+  }
+}
+
+.actions-visible .dots-btn{
+  opacity: 1 !important;
+  pointer-events: auto !important;
+  transform: scale(1) !important;
+}
+
+
+#undo-toast{
+  position: fixed;
+  left: 50%;
+  bottom: 14px;
+  transform: translateX(-50%);
+  background: #020617;
+  border: 1px solid var(--border);
+  color: var(--text);
+  border-radius: 999px;
+  padding: .55rem .7rem;
+  display: flex;
+  align-items: center;
+  gap: .6rem;
+  box-shadow: 0 18px 40px rgba(0,0,0,.55);
+  z-index: 9999;
+  max-width: calc(100vw - 24px);
+}
+
+#undo-toast .msg{
+  font-size: .85rem;
+  color: var(--text-soft);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+#undo-toast .undo-btn{
+  border: 1px solid var(--accent);
+  background: transparent;
+  color: var(--accent);
+  border-radius: 999px;
+  padding: .25rem .6rem;
+  font-size: .85rem;
+  cursor: pointer;
+  white-space: nowrap;
+}
+#undo-toast .undo-btn:active{ transform: scale(.97); }
+    @media (min-width: 600px) {
+      .app {
+        padding-top: 1.5rem;
+      }
+
+      h1 {
+        font-size: 1.6rem;
+      }
+    }
