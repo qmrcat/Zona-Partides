@@ -157,7 +157,32 @@ const STORAGE_KEY = "marcadorPartides";
 
 
     // --- Jugadors en creació de partida ---
-    function  renderNewGamePlayers() {
+    // function  renderNewGamePlayers() {
+    //   playersContainer.innerHTML = "";
+    //   if (!newGamePlayers.length) {
+    //     playersContainer.innerHTML =
+    //       '<span class="empty-note">Afegeix com a mínim un jugador.</span>';
+    //     return;
+    //   }
+
+    //   newGamePlayers.forEach((name, idx) =>{
+    //     const span = document.createElement("span");
+    //     span.className = "player-tag";
+    //     span.textContent = name;
+
+    //     span.addEventListener("click", async () => {
+
+    //       const ok = await UIModal.confirm(`Vols eliminar el jugador "${name}"?`);
+    //       if (ok) {
+    //         newGamePlayers.splice(idx, 1);
+    //         renderNewGamePlayers();
+    //       }
+    //     });
+
+    //     playersContainer.appendChild(span);
+    //   });
+    // }
+    function renderNewGamePlayers() {
       playersContainer.innerHTML = "";
       if (!newGamePlayers.length) {
         playersContainer.innerHTML =
@@ -165,21 +190,37 @@ const STORAGE_KEY = "marcadorPartides";
         return;
       }
 
-      newGamePlayers.forEach((name, idx) =>{
-        const span = document.createElement("span");
-        span.className = "player-tag";
-        span.textContent = name;
-
-        span.addEventListener("click", async () => {
-
-          const ok = await UIModal.confirm(`Vols eliminar el jugador "${name}"?`);
-          if (ok) {
-            newGamePlayers.splice(idx, 1);
-            renderNewGamePlayers();
-          }
+      newGamePlayers.forEach((name, idx) => {
+        const tag = document.createElement("span");
+        tag.className = "player-tag";
+        tag.style.display = "inline-flex";
+        tag.style.alignItems = "center";
+        tag.style.gap = "0.35rem";
+        tag.style.paddingRight = "0.35rem";
+        
+        const nameSpan = document.createElement("span");
+        nameSpan.textContent = name;
+        
+        const removeBtn = document.createElement("button");
+        removeBtn.type = "button";
+        removeBtn.textContent = "✕";
+        removeBtn.style.border = "none";
+        removeBtn.style.background = "transparent";
+        removeBtn.style.color = "var(--danger)";
+        removeBtn.style.cursor = "pointer";
+        removeBtn.style.padding = "0";
+        removeBtn.style.fontSize = "0.85rem";
+        removeBtn.style.lineHeight = "1";
+        removeBtn.title = `Eliminar ${name}`;
+        
+        removeBtn.addEventListener("click", () => {
+          newGamePlayers.splice(idx, 1);
+          renderNewGamePlayers();
         });
-
-        playersContainer.appendChild(span);
+        
+        tag.appendChild(nameSpan);
+        tag.appendChild(removeBtn);
+        playersContainer.appendChild(tag);
       });
     }
 
