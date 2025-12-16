@@ -208,6 +208,15 @@
       margin-top: 0.4rem;
     }
 
+    /* .player-tag {
+      font-size: 0.75rem;
+      padding: 0.18rem 0.55rem;
+      border-radius: 999px;
+      background: #020617;
+      border: 1px dashed var(--border);
+      color: var(--text-soft);
+    } */
+
     .player-tag {
       font-size: 0.75rem;
       padding: 0.18rem 0.55rem;
@@ -215,8 +224,26 @@
       background: #020617;
       border: 1px dashed var(--border);
       color: var(--text-soft);
+      cursor: move; /* Indica que es pot arrossegar */
+      user-select: none;
+      transition: transform 0.15s ease, opacity 0.15s ease;
     }
 
+    .player-tag:hover {
+      border-color: var(--accent);
+    }
+
+    .player-tag.dragging {
+      opacity: 0.5;
+      transform: scale(0.95);
+    }
+
+    .player-tag.drag-over {
+      border-color: var(--accent);
+      border-style: solid;
+      background: var(--accent-soft);
+    }
+    
     .empty-note {
       font-size: 0.8rem;
       color: var(--text-soft);

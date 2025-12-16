@@ -182,6 +182,116 @@ const STORAGE_KEY = "marcadorPartides";
     //     playersContainer.appendChild(span);
     //   });
     // }
+    // function renderNewGamePlayers() {
+    //   playersContainer.innerHTML = "";
+    //   if (!newGamePlayers.length) {
+    //     playersContainer.innerHTML =
+    //       '<span class="empty-note">Afegeix com a mínim un jugador.</span>';
+    //     return;
+    //   }
+
+    //   newGamePlayers.forEach((name, idx) => {
+    //     const tag = document.createElement("span");
+    //     tag.className = "player-tag";
+    //     tag.style.display = "inline-flex";
+    //     tag.style.alignItems = "center";
+    //     tag.style.gap = "0.35rem";
+    //     tag.style.paddingRight = "0.35rem";
+        
+    //     const nameSpan = document.createElement("span");
+    //     nameSpan.textContent = name;
+        
+    //     const removeBtn = document.createElement("button");
+    //     removeBtn.type = "button";
+    //     removeBtn.textContent = "✕";
+    //     removeBtn.style.border = "none";
+    //     removeBtn.style.background = "transparent";
+    //     removeBtn.style.color = "var(--danger)";
+    //     removeBtn.style.cursor = "pointer";
+    //     removeBtn.style.padding = "0";
+    //     removeBtn.style.fontSize = "0.85rem";
+    //     removeBtn.style.lineHeight = "1";
+    //     removeBtn.title = `Eliminar ${name}`;
+        
+    //     removeBtn.addEventListener("click", () => {
+    //       newGamePlayers.splice(idx, 1);
+    //       renderNewGamePlayers();
+    //     });
+        
+    //     tag.appendChild(nameSpan);
+    //     tag.appendChild(removeBtn);
+    //     playersContainer.appendChild(tag);
+    //   });
+    // }
+
+
+    // --- Drag & Drop per ordenar jugadors ---
+    let draggedPlayerIndex = null;
+
+    function handleDragStart(e) {
+      draggedPlayerIndex = parseInt(e.target.dataset.index);
+      e.target.classList.add("dragging");
+      e.dataTransfer.effectAllowed = "move";
+    }
+
+    function handleDragOver(e) {
+      if (e.preventDefault) {
+        e.preventDefault();
+      }
+      e.dataTransfer.dropEffect = "move";
+      return false;
+    }
+
+    function handleDragEnter(e) {
+      const target = e.target.closest(".player-tag");
+      if (target && target.classList.contains("player-tag")) {
+        target.classList.add("drag-over");
+      }
+    }
+
+    function handleDragLeave(e) {
+      const target = e.target.closest(".player-tag");
+      if (target && target.classList.contains("player-tag")) {
+        target.classList.remove("drag-over");
+      }
+    }
+
+    function handleDrop(e) {
+      if (e.stopPropagation) {
+        e.stopPropagation();
+      }
+      
+      const target = e.target.closest(".player-tag");
+      if (!target) return false;
+      
+      const dropIndex = parseInt(target.dataset.index);
+      
+      if (draggedPlayerIndex !== null && draggedPlayerIndex !== dropIndex) {
+        // Reordenar l'array
+        const draggedPlayer = newGamePlayers[draggedPlayerIndex];
+        newGamePlayers.splice(draggedPlayerIndex, 1);
+        
+        // Ajustar l'índex si estem movent cap enrere
+        const newIndex = draggedPlayerIndex < dropIndex ? dropIndex - 1 : dropIndex;
+        newGamePlayers.splice(newIndex, 0, draggedPlayer);
+        
+        renderNewGamePlayers();
+      }
+      
+      return false;
+    }
+
+    function handleDragEnd(e) {
+      e.target.classList.remove("dragging");
+      
+      // Netejar totes les classes drag-over
+      document.querySelectorAll(".player-tag").forEach(tag => {
+        tag.classList.remove("drag-over");
+      });
+      
+      draggedPlayerIndex = null;
+    }    
+
     function renderNewGamePlayers() {
       playersContainer.innerHTML = "";
       if (!newGamePlayers.length) {
@@ -193,6 +303,8 @@ const STORAGE_KEY = "marcadorPartides";
       newGamePlayers.forEach((name, idx) => {
         const tag = document.createElement("span");
         tag.className = "player-tag";
+        tag.draggable = true;
+        tag.dataset.index = idx;
         tag.style.display = "inline-flex";
         tag.style.alignItems = "center";
         tag.style.gap = "0.35rem";
@@ -213,10 +325,19 @@ const STORAGE_KEY = "marcadorPartides";
         removeBtn.style.lineHeight = "1";
         removeBtn.title = `Eliminar ${name}`;
         
-        removeBtn.addEventListener("click", () => {
+        removeBtn.addEventListener("click", (e) => {
+          e.stopPropagation();
           newGamePlayers.splice(idx, 1);
           renderNewGamePlayers();
         });
+        
+        // Events de drag & drop
+        tag.addEventListener("dragstart", handleDragStart);
+        tag.addEventListener("dragover", handleDragOver);
+        tag.addEventListener("drop", handleDrop);
+        tag.addEventListener("dragenter", handleDragEnter);
+        tag.addEventListener("dragleave", handleDragLeave);
+        tag.addEventListener("dragend", handleDragEnd);
         
         tag.appendChild(nameSpan);
         tag.appendChild(removeBtn);
