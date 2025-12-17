@@ -39,10 +39,7 @@ const STORAGE_KEY = "marcadorPartides";
     const boardPlayerNameInput = $("#board-player-name");
     const btnBoardAddPlayer = $("#btn-board-add-player");
 
-    // CustomModals.setTheme('dark')
-
-
-    //UTILS
+    let draggedPlayerIndex = null;
 
 
     // --- localStorage ---
@@ -156,78 +153,7 @@ const STORAGE_KEY = "marcadorPartides";
     }
 
 
-    // --- Jugadors en creació de partida ---
-    // function  renderNewGamePlayers() {
-    //   playersContainer.innerHTML = "";
-    //   if (!newGamePlayers.length) {
-    //     playersContainer.innerHTML =
-    //       '<span class="empty-note">Afegeix com a mínim un jugador.</span>';
-    //     return;
-    //   }
-
-    //   newGamePlayers.forEach((name, idx) =>{
-    //     const span = document.createElement("span");
-    //     span.className = "player-tag";
-    //     span.textContent = name;
-
-    //     span.addEventListener("click", async () => {
-
-    //       const ok = await UIModal.confirm(`Vols eliminar el jugador "${name}"?`);
-    //       if (ok) {
-    //         newGamePlayers.splice(idx, 1);
-    //         renderNewGamePlayers();
-    //       }
-    //     });
-
-    //     playersContainer.appendChild(span);
-    //   });
-    // }
-    // function renderNewGamePlayers() {
-    //   playersContainer.innerHTML = "";
-    //   if (!newGamePlayers.length) {
-    //     playersContainer.innerHTML =
-    //       '<span class="empty-note">Afegeix com a mínim un jugador.</span>';
-    //     return;
-    //   }
-
-    //   newGamePlayers.forEach((name, idx) => {
-    //     const tag = document.createElement("span");
-    //     tag.className = "player-tag";
-    //     tag.style.display = "inline-flex";
-    //     tag.style.alignItems = "center";
-    //     tag.style.gap = "0.35rem";
-    //     tag.style.paddingRight = "0.35rem";
-        
-    //     const nameSpan = document.createElement("span");
-    //     nameSpan.textContent = name;
-        
-    //     const removeBtn = document.createElement("button");
-    //     removeBtn.type = "button";
-    //     removeBtn.textContent = "✕";
-    //     removeBtn.style.border = "none";
-    //     removeBtn.style.background = "transparent";
-    //     removeBtn.style.color = "var(--danger)";
-    //     removeBtn.style.cursor = "pointer";
-    //     removeBtn.style.padding = "0";
-    //     removeBtn.style.fontSize = "0.85rem";
-    //     removeBtn.style.lineHeight = "1";
-    //     removeBtn.title = `Eliminar ${name}`;
-        
-    //     removeBtn.addEventListener("click", () => {
-    //       newGamePlayers.splice(idx, 1);
-    //       renderNewGamePlayers();
-    //     });
-        
-    //     tag.appendChild(nameSpan);
-    //     tag.appendChild(removeBtn);
-    //     playersContainer.appendChild(tag);
-    //   });
-    // }
-
-
     // --- Drag & Drop per ordenar jugadors ---
-    let draggedPlayerIndex = null;
-
     function handleDragStart(e) {
       draggedPlayerIndex = parseInt(e.target.dataset.index);
       e.target.classList.add("dragging");
@@ -593,12 +519,6 @@ const STORAGE_KEY = "marcadorPartides";
         const nameSpan = document.createElement("span");
         nameSpan.textContent = playerName;
 
-        // const delBtn = document.createElement("button");
-        // delBtn.type = "button";
-        // delBtn.className = "icon-btn";
-        // delBtn.textContent = "✕";
-        // delBtn.title = "Eliminar jugador";
-        // delBtn.addEventListener("click", () => deletePlayer(idx));
         const dotsBtn = document.createElement("button");
         dotsBtn.type = "button";
         dotsBtn.className = "dots-btn";
@@ -674,35 +594,6 @@ const STORAGE_KEY = "marcadorPartides";
         
         const customName = game.roundNames[r];
         label.textContent = customName || `Ronda ${r + 1}`;
-        
-        // // Event per editar el nom de la ronda
-        // label.addEventListener("click", async () => {
-        //   const currentName = game.roundNames[r] || `Ronda ${r + 1}`;
-        //   const newName = await UIModal.prompt(
-        //     `Escriu el nom per aquesta ronda:`,
-        //     {
-        //       title: "Editar nom de ronda",
-        //       defaultValue: currentName,
-        //       placeholder: `Ronda ${r + 1}`
-        //     }
-        //   );
-          
-        //   if (newName !== null) {
-        //     // Si el nom és buit o igual al per defecte, guardem null
-        //     const trimmed = newName.trim();
-        //     game.roundNames[r] = (trimmed && trimmed !== `Ronda ${r + 1}`) ? trimmed : null;
-        //     game.updatedAt = new Date().toISOString();
-        //     saveGames();
-        //     renderBoard(game);
-        //   }
-        // });
-
-        // const delBtn = document.createElement("button");
-        // delBtn.type = "button";
-        // delBtn.className = "icon-btn";
-        // delBtn.textContent = "✕";
-        // delBtn.title = "Eliminar ronda";
-        // delBtn.addEventListener("click", () => deleteRound(r));
 
         const dotsBtn = document.createElement("button");
         dotsBtn.type = "button";
@@ -836,24 +727,6 @@ const STORAGE_KEY = "marcadorPartides";
       
       return sum;
     }
-
-    // function renderTotalsSummary(game) {
-    //   totalsSummaryEl.innerHTML = "";
-    //   game.players.forEach((name, idx) => {
-    //     const total = calculatePlayerTotal(game, idx);
-    //     const span = document.createElement("span");
-    //     span.className = "totals-pill";
-    //     span.dataset.playerIndex = String(idx);
-    //     span.textContent = `${name}: ${total}`;
-        
-    //     // Afegir estil per totals negatius
-    //     if (total < 0) {
-    //       span.style.color = "var(--danger)";
-    //     }
-        
-    //     totalsSummaryEl.appendChild(span);
-    //   });
-    // }
 
     function renderTotalsSummary(game) {
       totalsSummaryEl.innerHTML = "";

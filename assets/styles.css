@@ -208,15 +208,6 @@
       margin-top: 0.4rem;
     }
 
-    /* .player-tag {
-      font-size: 0.75rem;
-      padding: 0.18rem 0.55rem;
-      border-radius: 999px;
-      background: #020617;
-      border: 1px dashed var(--border);
-      color: var(--text-soft);
-    } */
-
     .player-tag {
       font-size: 0.75rem;
       padding: 0.18rem 0.55rem;
@@ -444,22 +435,6 @@
   gap:.35rem;
 }
 
-/* .icon-btn{
-  border: 1px solid var(--border);
-  background: transparent;
-  color: var(--text-soft);
-  border-radius: 999px;
-  padding: .05rem .4rem;
-  line-height: 1.2;
-  font-size: .75rem;
-  cursor: pointer;
-}
-.icon-btn:hover{
-  border-color: var(--danger);
-  color: var(--danger);
-} */
-
-
 .round-label-wrap{
   display:flex;
   align-items:center;
@@ -468,13 +443,7 @@
 }
 
 /* Per defecte, els botons d'esborrar estan amagats */
-/* .th-player-wrap .icon-btn,
-.round-label-wrap .icon-btn{
-  opacity: 0;
-  pointer-events: none;
-  transform: scale(.95);
-  transition: opacity .15s ease, transform .15s ease;
-} */
+
 
 .th-player-wrap .dots-btn,
 .round-label-wrap .dots-btn{
@@ -536,24 +505,6 @@
   border-color: var(--accent);
   color: var(--accent);
 }
-
-
-/* En dispositius amb hover: apareixen en passar el ratolí */
-/* @media (hover: hover) and (pointer: fine) {
-  th:hover .th-player-wrap .icon-btn,
-  td:hover .round-label-wrap .icon-btn{
-    opacity: 1;
-    pointer-events: auto;
-    transform: scale(1);
-  }
-} */
-
-/* En mòbil: apareixen quan el contenidor té la classe .actions-visible */
-/* .actions-visible .icon-btn{
-  opacity: 1 !important;
-  pointer-events: auto !important;
-  transform: scale(1) !important;
-} */
 
 
 @media (hover: hover) and (pointer: fine) {
